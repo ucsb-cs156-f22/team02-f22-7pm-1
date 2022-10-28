@@ -127,7 +127,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
                 verify(articlesRepository, times(1)).findById(eq(7L));
                 Map<String, Object> json = responseToJson(response);
                 assertEquals("EntityNotFoundException", json.get("type"));
-                assertEquals("Article with id 7 not found", json.get("message"));
+                assertEquals("Articles with id 7 not found", json.get("message"));
         }
 
         @WithMockUser(roles = { "USER" })
@@ -191,7 +191,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/articles/post?title=Using testing-playground with React Testing Library&localDateTime=2022-01-03T00:00:00")
+                                post("/api/articles/post?title=Using testing-playground with React Testing Library&localDateTime=2022-04-20T00:00:00")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
@@ -250,7 +250,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
                 // assert
                 verify(articlesRepository, times(1)).findById(15L);
                 Map<String, Object> json = responseToJson(response);
-                assertEquals("Article with id 15 not found", json.get("message"));
+                assertEquals("Articles with id 15 not found", json.get("message"));
         }
 
         @WithMockUser(roles = { "ADMIN", "USER" })
@@ -328,7 +328,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
                 // assert
                 verify(articlesRepository, times(1)).findById(67L);
                 Map<String, Object> json = responseToJson(response);
-                assertEquals("UCSBDate with id 67 not found", json.get("message"));
+                assertEquals("Articles with id 67 not found", json.get("message"));
 
         }
 }
