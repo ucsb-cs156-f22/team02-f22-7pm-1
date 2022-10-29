@@ -26,7 +26,7 @@ import javax.validation.Valid;
 
 import java.time.LocalDateTime;
 @Api(description = "MenuItemReview")
-@RequestMapping("/api/ucsbdates")
+@RequestMapping("/api/menuitemreviews")
 @RestController
 @Slf4j
 
@@ -62,10 +62,10 @@ public class MenuItemReviewController extends ApiController {
         @ApiParam("itemId") @RequestParam long itemId,
         @ApiParam("reviewerEmail") @RequestParam String reviewerEmail,
         @ApiParam("stars") @RequestParam int stars,
-        @ApiParam("dateReviewed") @RequestParam LocalDateTime dateReviewed,
+        @ApiParam("date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS;") @RequestParam("dateReviewed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateReviewed,
         @ApiParam("comments") @RequestParam String comments
         )
-        {
+        throws JsonProcessingException{
 
         MenuItemReview review = new MenuItemReview();
         review.setItemId(itemId);
@@ -86,12 +86,12 @@ public class MenuItemReviewController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
     public Object deleteReview(
-            @ApiParam("code") @RequestParam long itemId) {
-        MenuItemReview review = menuItemReviewRepository.findById(itemId)
-                .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, itemId));
+            @ApiParam("id") @RequestParam long id) {
+        MenuItemReview review = menuItemReviewRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
 
         menuItemReviewRepository.delete(review);
-        return genericMessage("Menu item review with id %s deleted".formatted(itemId));
+        return genericMessage("MenuItemReview with id %s deleted".formatted(id));
     }
 
 
@@ -100,11 +100,11 @@ public class MenuItemReviewController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
     public MenuItemReview updateReview(
-            @ApiParam("itemId") @RequestParam long itemId,
+            @ApiParam("id") @RequestParam long id,
             @RequestBody @Valid MenuItemReview incoming) {
 
-        MenuItemReview review = menuItemReviewRepository.findById(itemId)
-                .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, itemId));
+        MenuItemReview review = menuItemReviewRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
 
         
         review.setItemId(incoming.getItemId());
