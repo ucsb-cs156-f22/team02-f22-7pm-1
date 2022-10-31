@@ -262,6 +262,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
             // arrange
 
             LocalDateTime ldt = LocalDateTime.parse("2022-01-03T00:00:00");
+            LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:03");
             MenuItemReview review = MenuItemReview.builder()
                             .itemId(27L) 
                             .reviewerEmail("norf@ucsb.edu")
@@ -274,7 +275,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                             .itemId(21L) 
                             .reviewerEmail("norfy@ucsb.edu")
                             .stars(5)
-                            .dateReviewed(ldt)
+                            .dateReviewed(ldt1)
                             .comments("best apple pie ever")
                             .build();
 
