@@ -271,9 +271,9 @@ public class ArticlesControllerTests extends ControllerTestCase {
 
                 Articles articleEdited = Articles.builder()
                                 .title("Editied: Using testing-playground with React Testing Library")
-                                .url("https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7")
+                                .url("https://dev.to/katieraby/using-testing-playground-with-react-testing-library-6j7")
                                 .explanation("Edited version")
-                                .email("phtcon@ucsb.edu")
+                                .email("phtco@ucsb.edu")
                                 .dateAdded(ldt2)
                                 .build();
 
